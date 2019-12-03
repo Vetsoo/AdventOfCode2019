@@ -78,6 +78,35 @@ namespace Day3
 			{
 				Console.WriteLine(distance);
 			}
+
+			Console.WriteLine("-----------------------------------------------");
+
+			var signalDelay = new List<int>();
+			foreach (var intersection in intersections)
+			{
+				var wire1Steps = 0;
+				var wire2Steps = 0;
+				foreach (var wire1Point in wire1Points)
+				{
+					if (wire1Point.X == intersection.X && wire1Point.Y == intersection.Y)
+						break;
+					wire1Steps++;
+				}
+				foreach (var wire2Point in wire2Points)
+				{
+					if (wire2Point.X == intersection.X && wire2Point.Y == intersection.Y)
+						break;
+					wire2Steps++;
+				}
+				signalDelay.Add(wire1Steps + wire2Steps);
+			}
+
+			var orderedSignalDelay = signalDelay.OrderBy(f => f);
+			foreach (var sd in orderedSignalDelay)
+			{
+				Console.WriteLine(sd);
+			}
+
 			Console.ReadLine();
 		}
 	}
