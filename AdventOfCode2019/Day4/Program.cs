@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Day4
 {
@@ -17,17 +18,26 @@ namespace Day4
 				var doubleDigit = false;
 				var neverDecrease = true;
 				var lastNumber = 0;
+				var thirdToLastNumber = 0;
+				var secondToLastNumber = 0;
 				var seperateNumbers = i.ToString().ToCharArray();
+				var counter = 1;
 				foreach (var number in seperateNumbers)
 				{
 					var n = Convert.ToInt32(number);
-					if (lastNumber == n)
+					if (lastNumber == secondToLastNumber && lastNumber != thirdToLastNumber && lastNumber != n)
 						doubleDigit = true;
 
 					if (n < lastNumber)
 						neverDecrease = false;
 
+					if (counter == 6 && n == lastNumber && n != secondToLastNumber)
+						doubleDigit = true;
+
+					thirdToLastNumber = secondToLastNumber;
+					secondToLastNumber = lastNumber;
 					lastNumber = n;
+					counter++;
 				}
 
 				if (doubleDigit && neverDecrease)
